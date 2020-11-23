@@ -16,13 +16,16 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 import SessionState
 
+
 def get_classification_report(y_test, y_pred):
     '''Source: https://stackoverflow.com/questions/39662398/scikit-learn-output-metrics-classification-report-into-csv-tab-delimited-format'''
     from sklearn import metrics
     report = metrics.classification_report(y_test, y_pred, output_dict=True)
     df_classification_report = pd.DataFrame(report).transpose()
-    df_classification_report = df_classification_report.sort_values(by=['f1-score'], ascending=False)
+    df_classification_report = df_classification_report.sort_values(
+        by=['f1-score'], ascending=False)
     return df_classification_report
+
 
 '''
 # Retenção de Funcionários
@@ -116,131 +119,132 @@ attrition
 '''
 
 st.vega_lite_chart(attrition, {
-  "mark": "rect",
-  "width": 700,
-  "height": 300,
-  "encoding": {
-    "x": {
-      "bin": {"maxbins":60},
-      "field": "Age",
-      "type": "quantitative"
+    "mark": "rect",
+    "width": 700,
+    "height": 300,
+    "encoding": {
+        "x": {
+            "bin": {"maxbins": 60},
+            "field": "Age",
+            "type": "quantitative"
+        },
+        "y": {
+            "bin": {"maxbins": 40},
+            "field": "TotalWorkingYears",
+            "type": "quantitative"
+        },
+        "color": {
+            "aggregate": "count",
+            "type": "quantitative"
+        }
     },
-    "y": {
-      "bin": {"maxbins": 40},
-      "field": "TotalWorkingYears",
-      "type": "quantitative"
-    },
-    "color": {
-      "aggregate": "count",
-      "type": "quantitative"
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        }
     }
-  },
-  "config": {
-    "view": {
-      "stroke": "transparent"
-    }
-  }
 }
 )
 
 st.vega_lite_chart(attrition, {
-  "mark": "rect",
-  "width": 700,
-  "height": 300,
-  "encoding": {
-    "x": {
-      "bin": {"maxbins":60},
-      "field": "Age",
-      "type": "quantitative"
+    "mark": "rect",
+    "width": 700,
+    "height": 300,
+    "encoding": {
+        "x": {
+            "bin": {"maxbins": 60},
+            "field": "Age",
+            "type": "quantitative"
+        },
+        "y": {
+            "bin": {"maxbins": 40},
+            "field": "YearsInCurrentRole",
+            "type": "quantitative"
+        },
+        "color": {
+            "aggregate": "count",
+            "type": "quantitative"
+        }
     },
-    "y": {
-      "bin": {"maxbins": 40},
-      "field": "YearsInCurrentRole",
-      "type": "quantitative"
-    },
-    "color": {
-      "aggregate": "count",
-      "type": "quantitative"
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        }
     }
-  },
-  "config": {
-    "view": {
-      "stroke": "transparent"
-    }
-  }
 }
 )
 
 st.vega_lite_chart(attrition, {
-  "mark": "rect",
-  "width": 700,
-  "height": 300,
-  "encoding": {
-    "x": {
-      "bin": {"maxbins":60},
-      "field": "YearsAtCompany",
-      "type": "quantitative"
+    "mark": "rect",
+    "width": 700,
+    "height": 300,
+    "encoding": {
+        "x": {
+            "bin": {"maxbins": 60},
+            "field": "YearsAtCompany",
+            "type": "quantitative"
+        },
+        "y": {
+            "bin": {"maxbins": 40},
+            "field": "JobSatisfaction",
+            "type": "quantitative"
+        },
+        "color": {
+            "aggregate": "count",
+            "type": "quantitative"
+        }
     },
-    "y": {
-      "bin": {"maxbins": 40},
-      "field": "JobSatisfaction",
-      "type": "quantitative"
-    },
-    "color": {
-      "aggregate": "count",
-      "type": "quantitative"
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        }
     }
-  },
-  "config": {
-    "view": {
-      "stroke": "transparent"
-    }
-  }
 }
 )
 
 st.vega_lite_chart(attrition, {
-  "mark": "rect",
-  "width": 700,
-  "height": 300,
-  "encoding": {
-    "x": {
-      "bin": {"maxbins":60},
-      "field": "WorkLifeBalance",
-      "type": "quantitative"
+    "mark": "rect",
+    "width": 700,
+    "height": 300,
+    "encoding": {
+        "x": {
+            "bin": {"maxbins": 60},
+            "field": "WorkLifeBalance",
+            "type": "quantitative"
+        },
+        "y": {
+            "bin": {"maxbins": 40},
+            "field": "JobSatisfaction",
+            "type": "quantitative"
+        },
+        "color": {
+            "aggregate": "count",
+            "type": "quantitative"
+        }
     },
-    "y": {
-      "bin": {"maxbins": 40},
-      "field": "JobSatisfaction",
-      "type": "quantitative"
-    },
-    "color": {
-      "aggregate": "count",
-      "type": "quantitative"
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        }
     }
-  },
-  "config": {
-    "view": {
-      "stroke": "transparent"
-    }
-  }
 }
 )
 
 # Define a dictionary for the target mapping
-target_map = {'Yes':1, 'No':0}
+target_map = {'Yes': 1, 'No': 0}
 # Use the pandas apply method to numerically encode our attrition target variable
-attrition["Attrition_numerical"] = attrition["Attrition"].apply(lambda x: target_map[x])
+attrition["Attrition_numerical"] = attrition["Attrition"].apply(
+    lambda x: target_map[x])
 
 # creating a list of only numerical values
-numerical = [u'Age', u'DailyRate', u'DistanceFromHome', 
+numerical = [u'Age', u'DailyRate', u'DistanceFromHome',
              u'Education', u'EnvironmentSatisfaction',
              u'HourlyRate', u'JobInvolvement', u'JobLevel', u'JobSatisfaction',
              u'MonthlyIncome', u'MonthlyRate', u'NumCompaniesWorked',
              u'PercentSalaryHike', u'PerformanceRating', u'RelationshipSatisfaction',
              u'StockOptionLevel', u'TotalWorkingYears',
              u'TrainingTimesLastYear', u'WorkLifeBalance', u'YearsAtCompany',
-             u'YearsInCurrentRole', u'YearsSinceLastPromotion',u'YearsWithCurrManager']
+             u'YearsInCurrentRole', u'YearsSinceLastPromotion', u'YearsWithCurrManager']
 
 plt.figure(figsize=(19, 15))
 
@@ -274,8 +278,10 @@ for col, value in attrition.iteritems():
 numerical = attrition.columns.difference(categorical)
 categorical.remove('Attrition')
 
-atributes_numerical = st.multiselect('Atributos Numéricos Selecionados', numerical.values.tolist(), numerical.values.tolist())
-atributes_categorical = st.multiselect('Atributos Categóricos Selecionados', categorical, categorical)
+atributes_numerical = st.multiselect(
+    'Atributos Numéricos Selecionados', numerical.values.tolist(), numerical.values.tolist())
+atributes_categorical = st.multiselect(
+    'Atributos Categóricos Selecionados', categorical, categorical)
 
 # Store the categorical data in a dataframe called attrition_cat
 attrition_cat = attrition[categorical]
@@ -288,7 +294,7 @@ attrition_num = attrition[atributes_numerical]
 attrition_final = pd.concat([attrition_num, attrition_cat], axis=1)
 
 # Define a dictionary for the target mapping
-target_map = {'Yes':1, 'No':0}
+target_map = {'Yes': 1, 'No': 0}
 # Use the pandas apply method to numerically encode our attrition target variable
 target = attrition["Attrition"].apply(lambda x: target_map[x])
 
@@ -302,24 +308,24 @@ rf_params = {
     'max_features': 0.3,
     'max_depth': 4,
     'min_samples_leaf': 2,
-    'max_features' : 'sqrt',
-    'random_state' : seed,
+    'max_features': 'sqrt',
+    'random_state': seed,
     'verbose': 0
 }
 
 rf = RandomForestClassifier(**rf_params)
 
 # Split data into train and test sets as well as for validation and testing
-train, test, target_train, target_val = train_test_split(attrition_final, 
-                                                         target, 
-                                                         train_size= 0.80,
-                                                         random_state=1);
-oversampler=SMOTE(random_state=0)
+train, test, target_train, target_val = train_test_split(attrition_final,
+                                                         target,
+                                                         train_size=0.80,
+                                                         random_state=1)
+oversampler = SMOTE(random_state=0)
 smote_train, smote_target = oversampler.fit_sample(train, target_train)
 
 if st.button('Treinar Modelo') or session_state.trained:
     'Iniciando o treinamento...'
-    
+
     rf.fit(smote_train, smote_target)
 
     session_state.model = rf
@@ -331,23 +337,26 @@ if st.button('Treinar Modelo') or session_state.trained:
     rf_predictions = rf.predict(test)
 
     st.success('Modelo treinado e valido com sucesso!')
-    score = "Pontuação de Precisão (Accurácia): {}".format(accuracy_score(target_val, rf_predictions))
+    score = "Pontuação de Precisão (Accurácia): {}".format(
+        accuracy_score(target_val, rf_predictions))
     session_state.score = score
 
     st.info(score)
 
     plt.figure(figsize=(19, 15))
     (pd.Series(rf.feature_importances_, index=attrition_final.columns.values)
-   .nlargest(20)
-   .plot(kind='barh')) 
+     .nlargest(20)
+     .plot(kind='barh'))
     st.pyplot()
 
-    test_value = [20, 2000, 10, 5, 2, 94, 3, 4, 4, 5993, 19479, 8, 11, 3, 1, 0, 8, 0, 1, 6, 4, 0, 5, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1]
-    
+    test_value = [20, 2000, 10, 5, 2, 94, 3, 4, 4, 5993, 19479, 8, 11, 3, 1, 0, 8, 0, 1, 6, 4,
+                  0, 5, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1]
+
     col2_1, col2_2, col2_3 = st.beta_columns(3)
-    
+
     with col2_1:
-        s_business_travel = st.selectbox("Business Travel", attrition["BusinessTravel"].unique())
+        s_business_travel = st.selectbox(
+            "Business Travel", attrition["BusinessTravel"].unique())
 
         if s_business_travel == 'Non_Travel':
             test_value[23] = 1
@@ -362,7 +371,8 @@ if st.button('Treinar Modelo') or session_state.trained:
             test_value[24] = 0
             test_value[25] = 1
 
-        s_department = st.selectbox("Department", attrition["Department"].unique())
+        s_department = st.selectbox(
+            "Department", attrition["Department"].unique())
 
         if s_department == 'Human Resources':
             test_value[26] = 1
@@ -377,7 +387,8 @@ if st.button('Treinar Modelo') or session_state.trained:
             test_value[27] = 0
             test_value[28] = 1
 
-        s_education_field = st.selectbox("Education Field", attrition["EducationField"].unique())
+        s_education_field = st.selectbox(
+            "Education Field", attrition["EducationField"].unique())
 
         if s_education_field == 'Human Resources':
             test_value[29] = 1
@@ -421,7 +432,7 @@ if st.button('Treinar Modelo') or session_state.trained:
             test_value[32] = 0
             test_value[33] = 0
             test_value[34] = 1
-     
+
     with col2_2:
         s_gender = st.selectbox("Gender", attrition["Gender"].unique())
 
@@ -524,9 +535,9 @@ if st.button('Treinar Modelo') or session_state.trained:
             test_value[43] = 0
             test_value[44] = 0
             test_value[45] = 1
-            
-       
-        s_marital_status = st.selectbox("Marital Status", attrition["MaritalStatus"].unique())
+
+        s_marital_status = st.selectbox(
+            "Marital Status", attrition["MaritalStatus"].unique())
 
         if s_marital_status == 'Divorced':
             test_value[46] = 1
@@ -540,9 +551,9 @@ if st.button('Treinar Modelo') or session_state.trained:
             test_value[46] = 0
             test_value[47] = 0
             test_value[48] = 1
-     
-    with col2_3: 
-    
+
+    with col2_3:
+
         s_over_time = st.selectbox("Over Time", attrition["OverTime"].unique())
 
         if s_over_time == 'No':
@@ -551,80 +562,101 @@ if st.button('Treinar Modelo') or session_state.trained:
         else:
             test_value[49] = 0
             test_value[50] = 1
-    
+
     col3_1, col3_2 = st.beta_columns(2)
-    
+
     with col3_1:
-        n_age = st.slider("Age", int(attrition["Age"].min()), int(2*attrition["Age"].max()), test_value[0])
+        n_age = st.slider("Age", int(attrition["Age"].min()), int(
+            2*attrition["Age"].max()), test_value[0])
         test_value[0] = n_age
 
-        n_daily_rate = st.slider("Daily Rate", attrition["DailyRate"].min(), 2*attrition["DailyRate"].max(), test_value[1])
+        n_daily_rate = st.slider("Daily Rate", int(attrition["DailyRate"].min()), int(
+            2*attrition["DailyRate"].max()), test_value[1])
         test_value[1] = n_daily_rate
 
-        n_dist_home = st.slider("Distance from Home", attrition["DistanceFromHome"].min(), 2*attrition["DistanceFromHome"].max(), test_value[2])
+        n_dist_home = st.slider("Distance from Home", int(attrition["DistanceFromHome"].min(
+        )), int(2*attrition["DistanceFromHome"].max()), test_value[2])
         test_value[2] = n_dist_home
 
-        n_education = st.slider("Education", attrition["Education"].min(), 2*attrition["Education"].max(), test_value[3])
+        n_education = st.slider("Education", int(attrition["Education"].min()), int(
+            2*attrition["Education"].max()), test_value[3])
         test_value[3] = n_education
 
-        n_env_satisf = st.slider("Environment Satisfaction", attrition["EnvironmentSatisfaction"].min(), attrition["EnvironmentSatisfaction"].max(), test_value[4])
+        n_env_satisf = st.slider("Environment Satisfaction", int(attrition["EnvironmentSatisfaction"].min(
+        )), int(attrition["EnvironmentSatisfaction"].max()), test_value[4])
         test_value[4] = n_env_satisf
 
-        n_hour_rate = st.slider("Hourly Rate", attrition["HourlyRate"].min(), 2*attrition["HourlyRate"].max(), test_value[5])
+        n_hour_rate = st.slider("Hourly Rate", int(attrition["HourlyRate"].min()), int(
+            2*attrition["HourlyRate"].max()), test_value[5])
         test_value[5] = n_hour_rate
 
-        n_job_involv = st.slider("Job Involvement", attrition["JobInvolvement"].min(), attrition["JobInvolvement"].max(), test_value[6])
+        n_job_involv = st.slider("Job Involvement", int(attrition["JobInvolvement"].min(
+        )), int(attrition["JobInvolvement"].max()), test_value[6])
         test_value[6] = n_job_involv
 
-        n_job_level = st.slider("Job Level", attrition["JobLevel"].min(), attrition["JobLevel"].max(), test_value[7])
+        n_job_level = st.slider("Job Level", int(attrition["JobLevel"].min()), int(attrition["JobLevel"].max()) test_value[7])
         test_value[7] = n_job_level
 
-        n_job_satisf = st.slider("Job Satisfaction", attrition["JobSatisfaction"].min(), attrition["JobSatisfaction"].max(), test_value[8])
+        n_job_satisf = st.slider("Job Satisfaction", int(attrition["JobSatisfaction"].min(
+        )), int(attrition["JobSatisfaction"].max()), test_value[8])
         test_value[8] = n_job_satisf
 
-    
-        n_month_income = st.slider("Monthly Income", attrition["MonthlyIncome"].min(), 2*attrition["MonthlyIncome"].max(), test_value[9])
+        n_month_income = st.slider("Monthly Income", int(attrition["MonthlyIncome"].min(
+        )), int(2*attrition["MonthlyIncome"].max()), test_value[9])
         test_value[9] = n_month_income
-    
-        n_monthy_rate = st.slider("Monthly Rate", attrition["MonthlyRate"].min(), 2*attrition["MonthlyRate"].max(), test_value[10])
+
+        n_monthy_rate = st.slider("Monthly Rate", int(attrition["MonthlyRate"].min()), int(
+            2*attrition["MonthlyRate"].max()), test_value[10])
         test_value[10] = n_monthy_rate
-      
-        num_comp_work = st.slider("Num. Companies Worked", 2*attrition["NumCompaniesWorked"].min(), attrition["NumCompaniesWorked"].max())
+
+        num_comp_work = st.slider("Num. Companies Worked", int(
+            2*attrition["NumCompaniesWorked"].min()), int(attrition["NumCompaniesWorked"].max()), test_value[11])
         test_value[11] = num_comp_work
-        
+
     with col3_2:
 
-        sal_hike = st.slider("% Salary Hike", attrition["PercentSalaryHike"].min(), 2*attrition["PercentSalaryHike"].max())
+        sal_hike = st.slider("% Salary Hike", int(
+            attrition["PercentSalaryHike"].min()), int(2*attrition["PercentSalaryHike"].max()), test_value[12])
         test_value[12] = sal_hike
-    
-        n_perf_rating = st.slider("Performance Rating", attrition["PerformanceRating"].min(), attrition["PerformanceRating"].max(), test_value[13])
+
+        n_perf_rating = st.slider("Performance Rating", int(attrition["PerformanceRating"].min(
+        )), int(attrition["PerformanceRating"].max()), test_value[13])
         test_value[13] = n_perf_rating
 
-        n_relat_satisf = st.slider("Relationship Satisfaction", attrition["RelationshipSatisfaction"].min(), attrition["RelationshipSatisfaction"].max(), test_value[15])
+        n_relat_satisf = st.slider("Relationship Satisfaction", int(attrition["RelationshipSatisfaction"].min(
+        )), int(attrition["RelationshipSatisfaction"].max()), test_value[15])
         test_value[14] = n_relat_satisf
 
-        n_stock_op = st.slider("Stock Option Level", attrition["StockOptionLevel"].min(), attrition["StockOptionLevel"].max())
+        n_stock_op = st.slider("Stock Option Level", int(
+            attrition["StockOptionLevel"].min()), int(attrition["StockOptionLevel"].max()), test_value[15])
         test_value[15] = n_stock_op
 
-        n_total_work_year = st.slider("Total Working Years", 2*attrition["TotalWorkingYears"].min(), attrition["TotalWorkingYears"].max())
+        n_total_work_year = st.slider("Total Working Years", int(
+            2*attrition["TotalWorkingYears"].min()), int(attrition["TotalWorkingYears"].max()), test_value[16])
         test_value[16] = n_total_work_year
 
-        n_train_last_y = st.slider("Training Times Last Year", 2*attrition["TrainingTimesLastYear"].min(), attrition["TrainingTimesLastYear"].max())
+        n_train_last_y = st.slider("Training Times Last Year", int(
+            2*attrition["TrainingTimesLastYear"].min()), int(attrition["TrainingTimesLastYear"].max()), test_value[17])
         test_value[17] = n_train_last_y
 
-        n_worklife_bal = st.slider("Work Life Balance", attrition["WorkLifeBalance"].min(), attrition["WorkLifeBalance"].max())
+        n_worklife_bal = st.slider("Work Life Balance", int(
+            attrition["WorkLifeBalance"].min()), int(attrition["WorkLifeBalance"].max()), test_value[18])
         test_value[18] = n_worklife_bal
 
-        n_years_comp = st.slider("Years at Company", attrition["YearsAtCompany"].min(), 2*attrition["YearsAtCompany"].max(), test_value[19] )
+        n_years_comp = st.slider("Years at Company", int(attrition["YearsAtCompany"].min(
+        )), int(2*attrition["YearsAtCompany"].max()), test_value[19])
         test_value[19] = n_years_comp
 
-        n_years_role = st.slider("Years in Current Role", attrition["YearsInCurrentRole"].min(), 2*attrition["YearsInCurrentRole"].max(), test_value[20])
+        n_years_role = st.slider("Years in Current Role", int(attrition["YearsInCurrentRole"].min(
+        )), int(2*attrition["YearsInCurrentRole"].max()), test_value[20])
         test_value[20] = n_years_role
 
-        n_years_promo = st.slider("Years since Last Promotion", attrition["YearsSinceLastPromotion"].min(), 2*attrition["YearsSinceLastPromotion"].max(), test_value[21])
+        n_years_promo = st.slider("Years since Last Promotion", int(attrition["YearsSinceLastPromotion"].min(
+        )), int(2*attrition["YearsSinceLastPromotion"].max()), test_value[21])
         test_value[21] = n_years_promo
 
-        n_years_manager = st.slider("Years with Current Manager", attrition["YearsWithCurrManager"].min(), 2*attrition["YearsWithCurrManager"].max(), test_value[22])
+        n_years_manager = st.slider("Years with Current Manager", int(
+            attrition["YearsWithCurrManager"].min()), int(2*attrition["YearsWithCurrManager"].max()), test_value[22])
         test_value[22] = n_years_manager
 
     test_value = [test_value]
@@ -636,12 +668,8 @@ if st.button('Treinar Modelo') or session_state.trained:
             st.success("No Attrition")
             st.balloons()
 
-        st.progress(int(100*rf.predict_proba(test_value)[0][rf.predict(test_value)[0]]))
+        st.progress(int(100*rf.predict_proba(test_value)
+                        [0][rf.predict(test_value)[0]]))
 
     except Exception as e:
         st.warning(e)
-
-
-
-    
-    
