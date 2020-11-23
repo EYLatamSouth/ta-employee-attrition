@@ -254,6 +254,7 @@ Suporta a decisão de escolhas de atributos para serem utilizados no treinamento
 
 '''
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
 sns.heatmap(corrMatrix)
 # Use Matplotlib to render seaborn
 st.pyplot()
@@ -342,7 +343,6 @@ if st.button('Treinar Modelo') or session_state.trained:
     st.pyplot()
 
     test_value = [20, 2000, 10, 5, 2, 94, 3, 4, 4, 5993, 19479, 8, 11, 3, 1, 0, 8, 0, 1, 6, 4, 0, 5, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1]
-
     
     col2_1, col2_2, col2_3 = st.beta_columns(3)
     
@@ -555,7 +555,7 @@ if st.button('Treinar Modelo') or session_state.trained:
     col3_1, col3_2 = st.beta_columns(2)
     
     with col3_1:
-        n_age = st.slider("Age", attrition["Age"].min(), 2*attrition["Age"].max(), test_value[0])
+        n_age = st.slider("Age", int(attrition["Age"].min()), int(2*attrition["Age"].max()), test_value[0])
         test_value[0] = n_age
 
         n_daily_rate = st.slider("Daily Rate", attrition["DailyRate"].min(), 2*attrition["DailyRate"].max(), test_value[1])
