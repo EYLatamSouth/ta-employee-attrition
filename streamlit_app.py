@@ -284,7 +284,7 @@ atributes_categorical = st.multiselect(
     'Atributos Categóricos Selecionados', categorical, categorical)
 
 # Store the categorical data in a dataframe called attrition_cat
-attrition_cat = attrition[categorical]
+attrition_cat = attrition[atributes_categorical]
 attrition_cat = pd.get_dummies(attrition_cat)
 
 # Store the numerical features to a dataframe attrition_num
@@ -351,6 +351,9 @@ if st.button('Treinar Modelo') or session_state.trained:
 
     test_value = [20, 2000, 10, 5, 2, 94, 3, 4, 4, 5993, 19479, 8, 11, 3, 1, 0, 8, 0, 1, 6, 4,
                   0, 5, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1]
+
+    '## Teste de Inferência Unitária'
+    'Supondo um determinado profissional, varie os valores que foram utilizados no treinamento e compare com os resultados ao final, incluindo sua probabilidade.'
 
     col2_1, col2_2, col2_3 = st.beta_columns(3)
 
@@ -663,14 +666,17 @@ if st.button('Treinar Modelo') or session_state.trained:
     test_value = [test_value]
 
     try:
+
+        prediction_id = rf.predict(test_value)[0]
+        proba = int(100*rf.predict_proba(test_value)[0][prediction_id])
+
         if rf.predict(test_value)[0] == 1:
-            st.warning("Attrition")
+            st.warning("Attrition (" + str(proba) + "%)")
         else:
-            st.success("No Attrition")
+            st.success("No Attrition (" + str(proba) + "%)")
             st.balloons()
 
-        st.progress(int(100*rf.predict_proba(test_value)
-                        [0][rf.predict(test_value)[0]]))
+        st.progress(proba)
 
     except Exception as e:
         st.warning(e)
