@@ -594,7 +594,8 @@ if st.button('Treinar Modelo') or session_state.trained:
         )), int(attrition["JobInvolvement"].max()), test_value[6])
         test_value[6] = n_job_involv
 
-        n_job_level = st.slider("Job Level", int(attrition["JobLevel"].min()), int(attrition["JobLevel"].max()) test_value[7])
+        n_job_level = st.slider("Job Level", int(attrition["JobLevel"].min()), int(
+            attrition["JobLevel"].max()), test_value[7])
         test_value[7] = n_job_level
 
         n_job_satisf = st.slider("Job Satisfaction", int(attrition["JobSatisfaction"].min(
