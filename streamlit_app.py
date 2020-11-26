@@ -16,17 +16,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 import SessionState
 
-
-def get_classification_report(y_test, y_pred):
-    '''Source: https://stackoverflow.com/questions/39662398/scikit-learn-output-metrics-classification-report-into-csv-tab-delimited-format'''
-    from sklearn import metrics
-    report = metrics.classification_report(y_test, y_pred, output_dict=True)
-    df_classification_report = pd.DataFrame(report).transpose()
-    df_classification_report = df_classification_report.sort_values(
-        by=['f1-score'], ascending=False)
-    return df_classification_report
-
-
 '''
 # Retenção de Funcionários
 
@@ -102,7 +91,7 @@ with col2:
 
 '''
 
-attrition = pd.read_csv('WA_Fn-UseC_-HR-Employee-Attrition.csv')
+attrition = pd.read_csv('data/WA_Fn-UseC_-HR-Employee-Attrition.csv')
 
 attrition = attrition.drop(['EmployeeCount'], axis=1)
 attrition = attrition.drop(['EmployeeNumber'], axis=1)
