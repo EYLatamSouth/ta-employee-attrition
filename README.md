@@ -13,7 +13,7 @@ In order to open the Notebook make sure to have the environmental requirements, 
 
 All requirements are listed in ```requirements.txt``` 
 
-For this repository we also deploy in Streamlit cloud services, so you can access directly using this [link](https://share.streamlit.io/eylatamsouth/ta-beer-consuption).
+For this repository we also deploy in Streamlit cloud services, so you can access directly using this [link](https://share.streamlit.io/eylatamsouth/ta-employee-attrition.
 
 
 ### Screenshots
